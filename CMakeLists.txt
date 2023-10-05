@@ -29,6 +29,9 @@ add_executable(${PROJECT_NAME} source/main.c
     include/player.h source/player.c
     include/ball.h source/ball.c
     include/brick.h source/brick.c
+    include/audio.h source/audio.c
+    include/textures.h source/textures.c
+    include/game_objs.h source/game_objs.c
 )
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)

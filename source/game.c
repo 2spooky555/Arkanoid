@@ -10,25 +10,6 @@ GameData InitGame() {
     return game;
 }
 
-GameObjects InitGameObjects() {
-    GameObjects game_objects = {0};
-    game_objects.player = CreatePlayer();
-    game_objects.ball = CreateBall(game_objects.player);
-    CreateBricks(game_objects.bricks);
-
-    return game_objects;
-}
-
-TextureManager InitTextures() {
-    TextureManager manager = {0};
-    manager.ball_texture = LoadTexture("resources/ball.png");
-    manager.brick_texture = LoadTexture("resources/brick.png");
-    manager.paddle_texture = LoadTexture("resources/paddle.png");
-    manager.raylib_logo = LoadTexture("resources/raylib_logo.png");
-
-    return manager;
-}
-
 void UpdateGame(GameData* game_data, GameObjects* game_objects) {
     switch (game_data->state) {
     case LOGO:
@@ -50,7 +31,11 @@ void UpdateGame(GameData* game_data, GameObjects* game_objects) {
         }
         if (!game_data->paused) {
             UpdatePlayer(&game_objects->player);
-            UpdateBall(&game_objects->ball, &game_objects->player, game_objects->bricks);
+            UpdateBall(
+                &game_objects->ball,
+                &game_objects->player,
+                game_objects->bricks
+            );
         }
         if (game_objects->player.lives <= 0) {
             game_data->state = ENDING;
@@ -119,11 +104,4 @@ void DrawGame(GameData game_data, TextureManager textures, GameObjects game) {
         }
         break;
     }
-}
-
-void UnloadGameTextures(TextureManager* textures) {
-    UnloadTexture(textures->ball_texture);
-    UnloadTexture(textures->brick_texture);
-    UnloadTexture(textures->paddle_texture);
-    UnloadTexture(textures->raylib_logo);
 }

@@ -1,0 +1,14 @@
+#include "../include/audio.h"
+
+AudioManager InitAudioManager() {
+    AudioManager manager = {0};
+    manager.bounce = LoadSound("resources/bounce.wav");
+    manager.start = LoadSound("resources/start.wav");
+
+    return manager;
+}
+
+void UnloadGameAudio(AudioManager* audio) {
+    UnloadSound(audio->bounce);
+    UnloadSound(audio->start);
+}
