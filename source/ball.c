@@ -115,12 +115,13 @@ static void CollideWithBricks(Ball* ball, Brick bricks[ROWS][COLS], AudioManager
     }
 }
 
-static void CheckLifeLost(Ball* ball, Player* player) {
+static void CheckLifeLost(Ball* ball, Player* player, AudioManager* audio) {
     if (ball->position.y + ball->radius >= GetScreenHeight()) {
         ball->position.x = player->position.x + player->size.x/2.0f;
         ball->position.y = player->position.y - ball->radius - 1.0f;
         ball->speed = (Vector2){0.0f, 0.0f};
         ball->active = false;
+        PlaySound(audio->explosion);
 
         player->lives--;
     }
@@ -132,7 +133,7 @@ void UpdateBall(Ball* ball, Player* player, Brick bricks[ROWS][COLS], AudioManag
         CollideWithPlayer(ball, *player, audio);
         CollideWithBricks(ball, bricks, audio);
         MoveBall(ball);
-        CheckLifeLost(ball, player);
+        CheckLifeLost(ball, player, audio);
     } else {
         ball->position.x = player->position.x + player->size.x/2.0f;
     }

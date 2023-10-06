@@ -1,6 +1,5 @@
 #include "raylib.h"
 #include "../include/game.h"
-#include "../include/audio.h"
 
 int main() {
     SetTraceLogLevel(LOG_WARNING);
