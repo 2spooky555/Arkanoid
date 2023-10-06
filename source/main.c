@@ -14,7 +14,7 @@ int main() {
     AudioManager audio = InitAudioManager();
 
     while (!WindowShouldClose()) {
-        UpdateGame(&game_data, &game_objects);
+        UpdateGame(&game_data, &game_objects, &audio);
         BeginDrawing();
         ClearBackground(WHITE);
         DrawGame(game_data, textures, game_objects);

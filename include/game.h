@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "textures.h"
 #include "game_objs.h"
+#include "audio.h"
 
 #define PROMPT_TEXT_FONT 20
 
@@ -19,5 +20,5 @@ typedef struct GameData {
 } GameData;
 
 GameData InitGame();
-void UpdateGame(GameData* game_data, GameObjects* game_objects);
+void UpdateGame(GameData* game_data, GameObjects* game_objects, AudioManager* audio);
 void DrawGame(GameData game_date, TextureManager textures, GameObjects game);

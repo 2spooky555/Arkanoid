@@ -10,9 +10,12 @@ GameData InitGame() {
     return game;
 }
 
-void UpdateGame(GameData* game_data, GameObjects* game_objects) {
+void UpdateGame(GameData* game_data, GameObjects* game_objects, AudioManager* audio) {
     switch (game_data->state) {
     case LOGO:
+        if (game_data->frame_counter == 0) {
+            PlaySound(audio->start);
+        }
         game_data->frame_counter++;
         if (game_data->frame_counter > 180) {
             game_data->state = TITLE;
@@ -34,7 +37,8 @@ void UpdateGame(GameData* game_data, GameObjects* game_objects) {
             UpdateBall(
                 &game_objects->ball,
                 &game_objects->player,
-                game_objects->bricks
+                game_objects->bricks,
+                audio
             );
         }
         if (game_objects->player.lives <= 0) {

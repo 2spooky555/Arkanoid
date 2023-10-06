@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include "player.h"
 #include "brick.h"
+#include "audio.h"
 #define BALL_SPEED 300.0f
 
 typedef struct Ball {
@@ -12,5 +13,5 @@ typedef struct Ball {
 } Ball;
 
 Ball CreateBall(Player player);
-void UpdateBall(Ball* ball, Player* player, Brick bricks[ROWS][COLS]);
+void UpdateBall(Ball* ball, Player* player, Brick bricks[ROWS][COLS], AudioManager* audio);
 void DrawBall(Ball ball, Texture2D texture);

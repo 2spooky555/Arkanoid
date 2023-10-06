@@ -35,7 +35,7 @@ static void CheckBallBounds(Ball* ball) {
     }
 }
 
-static void CollideWithPlayer(Ball* ball, Player player) {
+static void CollideWithPlayer(Ball* ball, Player player, AudioManager* audio) {
     Rectangle player_rect = (Rectangle){
         player.position.x,
         player.position.y,
@@ -44,6 +44,7 @@ static void CollideWithPlayer(Ball* ball, Player player) {
     };
 
     if (CheckCollisionCircleRec(ball->position, ball->radius, player_rect)) {
+        PlaySound(audio->bounce);
         ball->speed.x = (ball->position.x
                         - (player.position.x + player.size.x/2.0f))
                         /player.size.x*BALL_SPEED;
@@ -101,11 +102,12 @@ static bool CollideWithBrick(Ball* ball, Brick* brick) {
     return true;
 }
 
-static void CollideWithBricks(Ball* ball, Brick bricks[ROWS][COLS]) {
+static void CollideWithBricks(Ball* ball, Brick bricks[ROWS][COLS], AudioManager* audio) {
     for (int row = 0; row < ROWS; row++) {
         for (int col = 0; col < COLS; col++) {
             Brick* brick = &bricks[row][col];
             if (CollideWithBrick(ball, brick)) {
+                PlaySound(audio->bounce);
                 // only collide with one brick
                 break;
             }
@@ -124,11 +126,11 @@ static void CheckLifeLost(Ball* ball, Player* player) {
     }
 }
 
-void UpdateBall(Ball* ball, Player* player, Brick bricks[ROWS][COLS]) {
+void UpdateBall(Ball* ball, Player* player, Brick bricks[ROWS][COLS], AudioManager* audio) {
     if (ball->active) {
         CheckBallBounds(ball);
-        CollideWithPlayer(ball, *player);
-        CollideWithBricks(ball, bricks);
+        CollideWithPlayer(ball, *player, audio);
+        CollideWithBricks(ball, bricks, audio);
         MoveBall(ball);
         CheckLifeLost(ball, player);
     } else {
