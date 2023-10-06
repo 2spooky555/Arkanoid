@@ -12,18 +12,27 @@ int main() {
     GameObjects game_objects = InitGameObjects();
     TextureManager textures = InitTextures();
     AudioManager audio = InitAudioManager();
+    Fonts fonts = InitFonts();
+
+    // TODO: make a struct for music?
+    Music music = LoadMusicStream("resources/blockshock.mod");
+
+    PlayMusicStream(music);
 
     while (!WindowShouldClose()) {
         UpdateGame(&game_data, &game_objects, &audio);
+        UpdateMusicStream(music);
         BeginDrawing();
         ClearBackground(WHITE);
-        DrawGame(game_data, textures, game_objects);
+        DrawGame(game_data, textures, game_objects, fonts);
         DrawFPS(0, 0);
         EndDrawing();
     }
 
     UnloadGameTextures(&textures);
     UnloadGameAudio(&audio);
+    UnloadGameFonts(&fonts);
+    UnloadMusicStream(music);
     CloseAudioDevice();
     CloseWindow();
     return 0;
