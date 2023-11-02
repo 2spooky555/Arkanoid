@@ -4,8 +4,6 @@
 #include "audio.h"
 #include "font.h"
 
-#define PROMPT_TEXT_FONT 20
-
 typedef enum GameState {
     LOGO,
     TITLE,

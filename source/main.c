@@ -1,6 +1,11 @@
 #include "raylib.h"
 #include "../include/game.h"
 
+// FIX: web build
+#if defined(PLATFORM_WEB)
+    #include <emscripten/emscripten.h>
+#endif
+
 int main() {
     SetTraceLogLevel(LOG_WARNING);
     InitWindow(800, 500, "Arkanoid");
