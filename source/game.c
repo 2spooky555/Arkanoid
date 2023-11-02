@@ -13,20 +13,25 @@ GameData InitGame() {
 void UpdateGame(GameData* game_data, GameObjects* game_objects, AudioManager* audio) {
     switch (game_data->state) {
     case LOGO:
+    {
         game_data->frame_counter++;
         if (game_data->frame_counter > 180) {
             game_data->state = TITLE;
             game_data->frame_counter = 0;
         }
         break;
+    }
     case TITLE:
+    {
         game_data->frame_counter++;
         if (IsKeyPressed(KEY_ENTER)) {
             PlaySound(audio->start);
             game_data->state = GAMEPLAY;
         }
         break;
+    }
     case GAMEPLAY:
+    {
         if (IsKeyPressed(KEY_P)) {
             game_data->paused = !game_data->paused;
         }
@@ -45,7 +50,9 @@ void UpdateGame(GameData* game_data, GameObjects* game_objects, AudioManager* au
             game_data->frame_counter = 0;
         }
         break;
+    }
     case ENDING:
+    {
         game_data->frame_counter++;
         if (IsKeyPressed(KEY_ENTER)) {
             // reset game
@@ -56,41 +63,49 @@ void UpdateGame(GameData* game_data, GameObjects* game_objects, AudioManager* au
         }
         break;
     }
+    }
 }
 
 void DrawGame(GameData game_data, TextureManager textures, GameObjects game, Fonts fonts) {
     switch (game_data.state) {
     case LOGO:
+    {
         const Vector2 center = {
-            (GetScreenWidth() - textures.raylib_logo.width)/2.0f,
-            (GetScreenHeight() - textures.raylib_logo.height)/2.0f
+            (GetScreenWidth() - textures.raylib_logo.width) / 2.0f,
+            (GetScreenHeight() - textures.raylib_logo.height) / 2.0f
         };
         DrawTextureV(textures.raylib_logo, center, WHITE);
         break;
+    }
     case TITLE:
+    {
         DrawTextEx(
             fonts.game_font,
-            "Title",
-            (Vector2){20, 20},
-            PROMPT_TEXT_FONT*2.0f,
+            "Arkanoid",
+            (Vector2) {
+            20, 20
+        },
+            PROMPT_TEXT_FONT * 2.0f,
             4.0f,
-            GRAY
+            DARKGRAY
         );
-        if ((game_data.frame_counter/30) % 2 == 0) {
+        if ((game_data.frame_counter / 30) % 2 == 0) {
             DrawTextEx(
                 fonts.game_font,
                 "PRESS [ENTER] to START",
-                (Vector2){
-                    (float)GetScreenWidth()/2 - MeasureText("PRESS [ENTER] to START", PROMPT_TEXT_FONT)/2,
-                    (float)GetScreenHeight()/2 + 60,
-                },
+                (Vector2) {
+                (float)GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] to START", PROMPT_TEXT_FONT) / 2,
+                    (float)GetScreenHeight() / 2 + 60,
+            },
                 PROMPT_TEXT_FONT,
                 2.0f,
                 GRAY
             );
         }
         break;
+    }
     case GAMEPLAY:
+    {
         DrawBall(game.ball, textures.ball_texture);
         DrawPlayer(game.player, textures.paddle_texture);
         DrawBricks(game.bricks, textures.brick_texture);
@@ -98,38 +113,43 @@ void DrawGame(GameData game_data, TextureManager textures, GameObjects game, Fon
             DrawTextEx(
                 fonts.game_font,
                 "GAME PAUSED",
-                (Vector2){
-                    (float)GetScreenWidth()/2 - MeasureText("GAME PAUSED", PROMPT_TEXT_FONT)/2,
-                    (float)GetScreenHeight()/2 + 60,
-                },
+                (Vector2) {
+                (float)GetScreenWidth() / 2 - MeasureText("GAME PAUSED", PROMPT_TEXT_FONT) / 2,
+                    (float)GetScreenHeight() / 2 + 60,
+            },
                 PROMPT_TEXT_FONT,
                 2.0f,
                 GRAY
             );
         }
         break;
+    }
     case ENDING:
+    {
         DrawTextEx(
             fonts.game_font,
             "ENDING",
-            (Vector2){20, 20},
-            PROMPT_TEXT_FONT*2.0f,
+            (Vector2) {
+            20, 20
+        },
+            PROMPT_TEXT_FONT * 2.0f,
             4.0f,
             GRAY
         );
-        if ((game_data.frame_counter/30) % 2 == 0) {
+        if ((game_data.frame_counter / 30) % 2 == 0) {
             DrawTextEx(
                 fonts.game_font,
                 "PRESS [ENTER] TO PLAY AGAIN",
-                (Vector2){
-                    (float)GetScreenWidth()/2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", PROMPT_TEXT_FONT)/2,
-                    (float)GetScreenHeight()/2 + 60,
-                },
+                (Vector2) {
+                (float)GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", PROMPT_TEXT_FONT) / 2,
+                    (float)GetScreenHeight() / 2 + 60,
+            },
                 PROMPT_TEXT_FONT,
                 2.0f,
                 GRAY
             );
         }
         break;
+    }
     }
 }
