@@ -4,6 +4,10 @@ project(block_game)
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+if (EMSCRIPTEN)
+   set(PLATFORM "Web")
+endif()
+
 # Dependencies
 set(RAYLIB_VERSION 4.5.0)
 find_package(raylib ${RAYLIB_VERSION} QUIET) # QUIET or REQUIRED
