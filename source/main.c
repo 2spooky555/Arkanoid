@@ -1,6 +1,5 @@
 #include "raylib.h"
 #include "../include/game.h"
-#define __EMSCRIPTEN__
 #if defined(__EMSCRIPTEN__)
     #include <emscripten/emscripten.h>
 #endif
@@ -39,6 +38,8 @@ int main() {
     SetTraceLogLevel(LOG_WARNING);
     InitWindow(800, 500, "Arkanoid");
     InitAudioDevice();
+    // setup game
+    Setup();
 
     PlayMusicStream(music);
 
