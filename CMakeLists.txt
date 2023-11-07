@@ -3,6 +3,7 @@ project(block_game)
 
 # Generate compile_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --preload-file ${CMAKE_CURRENT_LIST_DIR}/resources/@resources/")
 
 if (EMSCRIPTEN)
    set(PLATFORM "Web")
